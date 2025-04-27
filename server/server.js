@@ -41,11 +41,7 @@ app.use('/api/address',addressRouter)
 app.use('/api/order',orderRouter)
 app.use('/api/payment',paymentRouter)
 
-export const instance = new Razorpay({
-    key_id: process.env.RAZORPAY_API_KEY,
-    key_secret: process.env.RAZORPAY_API_SECRET,
-    
-  });
+
   
  
 
