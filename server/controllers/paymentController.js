@@ -59,24 +59,29 @@ export const processPayment = async (req, res) => {
 
 
  export const paymentVerification = async (req, res) => {
-  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+  try {
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
-  const body = razorpay_order_id + "|" + razorpay_payment_id;
+    const body = razorpay_order_id + "|" + razorpay_payment_id;
 
-  const expectedSignature = crypto
-    .createHmac('sha256', instance.key_secret)
-    .update(body)
-    .digest('hex');
+    const expectedSignature = crypto
+      .createHmac('sha256', instance.key_secret)
+      .update(body)
+      .digest('hex');
 
-  if (expectedSignature === razorpay_signature) {
-    
-    await Order.findOneAndUpdate(
-      { razorpay_order_id: razorpay_order_id },
-      { isPaid: true }
-    );
+    if (expectedSignature === razorpay_signature) {
+      await Order.findOneAndUpdate(
+        { razorpay_order_id: razorpay_order_id },
+        { isPaid: true }
+      );
 
-    res.status(200).json({ success: true, message: "Payment Verified and Order Updated" });
-  } else {
-    res.status(400).json({ success: false, message: "Payment verification failed" });
+      return res.status(200).json({ success: true, message: "Payment Verified and Order Updated" });
+    } else {
+      return res.status(400).json({ success: false, message: "Payment verification failed" });
+    }
+  } catch (error) {
+    console.error("Payment Verification Error:", error);
+    return res.status(500).json({ success: false, message: "Internal Server Error", error: error.message });
   }
 };
+
