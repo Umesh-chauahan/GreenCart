@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useAppContext } from '../../context/AppContext'
 import { assets } from '../../assets/assets'
 import toast from 'react-hot-toast'
+import Loader from '../../components/Loader'
 
 const Orders = () => {
 
-    const {currency, axios} = useAppContext()
+    const {currency, axios,loading,setLoading} = useAppContext()
     const [orders,setOrders] = useState([])
 
     const fetchOrders = async() =>{
@@ -22,14 +23,20 @@ const Orders = () => {
        }
     }
 
-    useEffect(()=>{
-        fetchOrders()
+    useEffect(async()=>{
+        setLoading(true)
+       await fetchOrders()
+         setLoading(false)
     },[])
 
   return (
     <div className='no-scrollbar flex-1 h-[95vh] overflow-y-scroll'>
     <div className="md:p-10 p-4 space-y-4">
             <h2 className="text-lg font-medium">Orders List</h2>
+            {loading ? (
+                <Loader/>
+            ) : (
+            <div>
             {orders.map((order, index) => (
                 <div key={index} className="flex flex-col md:items-center md:flex-row gap-5 justify-between p-5 max-w-4xl rounded-md border border-gray-300 ">
                     <div className="flex gap-5 max-w-80">
@@ -62,6 +69,8 @@ const Orders = () => {
                     </div>
                 </div>
             ))}
+            </div>
+        )}
         </div>
         </div>
   )

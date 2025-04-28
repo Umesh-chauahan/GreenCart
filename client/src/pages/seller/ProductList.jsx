@@ -4,8 +4,8 @@ import toast from 'react-hot-toast'
 import Loader from '../../components/Loader';
 
 const ProductList = () => {
-    const { products, currency, axios, fetchProducts } = useAppContext();
-    const [loading, setLoading] = useState(true); // 👈 add loading state
+    const { products, currency, axios, fetchProducts, loading, setLoading } = useAppContext();
+     
 
     useEffect(() => {
         const getProducts = async () => {

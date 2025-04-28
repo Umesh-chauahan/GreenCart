@@ -17,7 +17,7 @@ export const AppProvider = ({children}) =>{
     const [isSeller,setIsSeller] = useState(false);
     const [showUserLogin ,setShowUserLogin] = useState(false);
     const [products,setProducts] = useState([]);
-
+    const [loading,setLoading] = useState(false);
     const [cartItems,setCartItems] = useState({}); 
     const [searchQuery,setSearchQuery] = useState({});
 
@@ -146,7 +146,7 @@ const getCartAmount = () => {
     },[cartItems])
 
     const value ={
-        navigate,user,setUser,isSeller,setIsSeller,showUserLogin,setShowUserLogin,products,currency,addToCart,updateCartItem,removeFromCart,cartItems,searchQuery,setSearchQuery,getCartCount,getCartAmount,axios,fetchProducts,setCartItems
+        navigate,user,setUser,isSeller,setIsSeller,showUserLogin,setShowUserLogin,products,currency,addToCart,updateCartItem,removeFromCart,cartItems,searchQuery,setSearchQuery,getCartCount,getCartAmount,axios,fetchProducts,setCartItems,loading,setLoading
     }
  
     return(
