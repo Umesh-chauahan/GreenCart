@@ -21,7 +21,7 @@ await connectDB();
 await connectCloudinary();
 
 // Allow multiple origins dynamically
-const allowedOrigins = ['http://localhost:5173', 'https://greencart-rosy.vercel.app'];
+const allowedOrigins = ['http://localhost:5173', 'https://greencart-rosy.vercel.app','https://greencart-umesh-chauhans-projects.vercel.app/'];
 
 const corsOptions = {
   origin: function (origin, callback) {
