@@ -23,11 +23,14 @@ const Orders = () => {
        }
     }
 
-    useEffect(async()=>{
-        setLoading(true)
-       await fetchOrders()
-         setLoading(false)
-    },[])
+    useEffect(() => {
+           const getProducts = async () => {
+               setLoading(true);
+               await fetchOrders();
+               setLoading(false);
+           };
+           getProducts();
+       }, []);
 
   return (
     <div className='no-scrollbar flex-1 h-[95vh] overflow-y-scroll'>
